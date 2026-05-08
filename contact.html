@@ -579,165 +579,93 @@ var elementorFrontendConfig = {"environmentMode":{"edit":false,"wpPreview":false
 <script src="https://matrixbond.ca/wp-content/plugins/elementor/assets/js/frontend.min.js?ver=3.25.11" id="elementor-frontend-js"></script>
 
 
+
+
+
 <style id="mobile-fix">
-/* ── Show/hide desktop vs mobile header ─────────────────── */
+/* ── Show desktop header only above 1199px ── */
 @media (max-width: 1199px) {
-  /* Hide desktop sticky header */
-  #sticky-header { display: none !important; }
-  /* Show mobile menu bar */
-  .mobile-menu { display: block !important; }
+  #sticky-header         { display: none !important; }
+  .mobile-menu           { display: block !important; }
+  body                   { padding-top: 70px !important; }
 }
 @media (min-width: 1200px) {
-  /* Show desktop header */
-  #sticky-header { display: block !important; }
-  /* Hide mobile menu */
-  .mobile-menu { display: none !important; }
+  #sticky-header         { display: block !important; }
+  .mobile-menu           { display: none !important; }
+  body                   { padding-top: 0 !important; }
 }
 
-/* ── Mobile menu bar layout ─────────────────────────────── */
+/* ── Keep mobile menu bar fixed at top ── */
 .mobile-menu {
-  position: fixed;
+  position: fixed !important;
   top: 0; left: 0; width: 100%;
-  z-index: 99998;
-  background: #fff;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.12);
-}
-.mobile-menu .menu-bar {
-  display: -webkit-flex; display: flex;
-  -webkit-align-items: center; align-items: center;
-  -webkit-justify-content: space-between; justify-content: space-between;
-  padding: 10px 20px;
-}
-.mobile-menu .site-logo img { height: 42px; width: auto; }
-.mobile-menu .menu-toggle {
-  cursor: pointer; font-size: 1.6rem; color: #333; padding: 4px 8px;
-  -webkit-user-select: none; user-select: none;
+  z-index: 99999;
 }
 
-/* ── Slide-down menu content ─────────────────────────────── */
-.mobile-menu .menu-content {
-  display: none;
-  max-height: calc(100vh - 65px);
-  overflow-y: auto;
-  background: #fff;
-  border-top: 1px solid #eee;
-  padding: 10px 0 20px;
-}
-.mobile-menu .menu-content.open { display: block !important; }
+/* ── Sub-menu hidden by default; shown via .open class ── */
+.mobile-menu .menu-item-has-children > .sub-menu { display: none; }
+.mobile-menu .menu-item-has-children.open > .sub-menu { display: block !important; }
 
-/* ── Mobile nav list ─────────────────────────────────────── */
-.mobile-menu .menu-ul {
-  display: block !important;
-  -webkit-flex-wrap: unset !important; flex-wrap: unset !important;
-  list-style: none; margin: 0; padding: 0;
+/* ── Rotate arrow when parent is open ── */
+.mobile-menu .menu-item-has-children > a .toggle-arrow {
+  display: inline-block;
+  -webkit-transition: -webkit-transform .25s;
+          transition: transform .25s;
 }
-.mobile-menu .menu-ul > li {
-  display: block !important;
-  -webkit-flex-shrink: unset !important; flex-shrink: unset !important;
-  border-bottom: 1px solid #f0f0f0;
-}
-.mobile-menu .menu-ul > li > a {
-  display: -webkit-flex; display: flex;
-  -webkit-align-items: center; align-items: center;
-  -webkit-justify-content: space-between; justify-content: space-between;
-  padding: 13px 20px;
-  font-size: 15px; font-weight: 600;
-  color: #222; text-decoration: none;
-}
-.mobile-menu .menu-ul > li > a:hover,
-.mobile-menu .menu-ul li.current-menu-item > a { color: #e8640c; }
-
-/* ── Mobile sub-menu (expanded on tap) ───────────────────── */
-.mobile-menu .sub-menu {
-  display: none;
-  background: #f7f7f7;
-  padding: 0;
-  list-style: none;
-  margin: 0;
-}
-.mobile-menu .sub-menu.open { display: block !important; }
-.mobile-menu .sub-menu li { border-bottom: 1px solid #eee; }
-.mobile-menu .sub-menu a {
-  display: block; padding: 11px 32px;
-  font-size: 14px; color: #444; text-decoration: none;
-}
-.mobile-menu .sub-menu a:hover { color: #e8640c; }
-
-/* ── Tap arrow rotates when sub-menu open ────────────────── */
-.mobile-menu .menu-item-has-children > a .toggle-arrow { transition: transform .25s; display: inline-block; }
-.mobile-menu .menu-item-has-children.open > a .toggle-arrow { transform: rotate(180deg); }
-
-/* ── Push page body down by mobile header height ─────────── */
-@media (max-width: 1199px) {
-  body { padding-top: 65px !important; }
+.mobile-menu .menu-item-has-children.open > a .toggle-arrow {
+  -webkit-transform: rotate(180deg);
+          transform: rotate(180deg);
 }
 </style>
 
 <script id="mobile-menu-js">
-(function(){
-  function initMobileMenu() {
+(function () {
+  function init() {
     var toggle  = document.querySelector('.mobile-menu .menu-toggle');
     var content = document.querySelector('.mobile-menu .menu-content');
     if (!toggle || !content) return;
 
-    /* Hamburger toggle */
-    toggle.addEventListener('click', function(e) {
+    /* ── Hamburger open/close ── */
+    toggle.addEventListener('click', function (e) {
       e.stopPropagation();
-      content.classList.toggle('open');
-      var icon = toggle.querySelector('i');
-      if (icon) {
-        icon.className = content.classList.contains('open')
-          ? 'bi bi-x-lg' : 'bi bi-grid-3x3-gap';
-      }
+      var open = content.style.display === 'block';
+      content.style.display = open ? 'none' : 'block';
     });
 
-    /* Sub-menu tap expand — replace hover chevrons with tap arrows */
+    /* ── Replace inline chevrons with tap-arrow spans ── */
     var parents = document.querySelectorAll('.mobile-menu .menu-item-has-children');
-    parents.forEach(function(item) {
+    parents.forEach(function (item) {
       var link = item.querySelector(':scope > a');
       if (!link) return;
-
-      /* Replace inline icon with a dedicated tap arrow */
-      var existingIcon = link.querySelector('i');
-      if (existingIcon) existingIcon.remove();
+      /* Remove any existing icon */
+      var old = link.querySelector('i');
+      if (old) old.remove();
+      /* Add toggle arrow */
       var arrow = document.createElement('span');
       arrow.className = 'toggle-arrow';
-      arrow.innerHTML = '<i class="bi bi-chevron-down" style="font-size:0.75em;"></i>';
+      arrow.innerHTML = '<i class="bi bi-chevron-down" style="font-size:.8em;"></i>';
       link.appendChild(arrow);
 
-      link.addEventListener('click', function(e) {
-        var sub = item.querySelector(':scope > .sub-menu');
-        if (!sub) return;
+      link.addEventListener('click', function (e) {
         e.preventDefault();
         var isOpen = item.classList.contains('open');
-        /* Close all siblings */
-        parents.forEach(function(p) {
-          p.classList.remove('open');
-          var s = p.querySelector(':scope > .sub-menu');
-          if (s) s.classList.remove('open');
-        });
-        if (!isOpen) {
-          item.classList.add('open');
-          sub.classList.add('open');
-        }
+        /* Collapse all siblings */
+        parents.forEach(function (p) { p.classList.remove('open'); });
+        if (!isOpen) item.classList.add('open');
       });
     });
 
-    /* Close menu on outside tap */
-    document.addEventListener('click', function(e) {
+    /* ── Close on outside tap ── */
+    document.addEventListener('click', function (e) {
       if (!e.target.closest('.mobile-menu')) {
-        content.classList.remove('open');
-        var icon = toggle.querySelector('i');
-        if (icon) icon.className = 'bi bi-grid-3x3-gap';
+        content.style.display = 'none';
       }
     });
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initMobileMenu);
-  } else {
-    initMobileMenu();
-  }
+  document.readyState === 'loading'
+    ? document.addEventListener('DOMContentLoaded', init)
+    : init();
 })();
 </script>
 
