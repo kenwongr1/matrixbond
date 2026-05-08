@@ -136,8 +136,8 @@ window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15
 	
 
 <style id="safari-nav-fix">
-/* ── Prevent nav items wrapping in Safari / Firefox ──────────────── */
-.manu-wrapper {
+/* ── Desktop header: prevent nav tabs wrapping in Safari/Firefox ── */
+#sticky-header .manu-wrapper {
   display: -webkit-box !important;
   display: -webkit-flex !important;
   display: flex !important;
@@ -148,16 +148,14 @@ window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15
   overflow: visible !important;
 }
 
-.site-branding { -webkit-flex-shrink: 0; flex-shrink: 0; }
+#sticky-header .site-branding { -webkit-flex-shrink: 0; flex-shrink: 0; }
 
-.main-navigation,
-.header-nav,
-.menu-menus-main-container {
-  overflow: visible !important;
-}
+#sticky-header .main-navigation,
+#sticky-header .header-nav,
+#sticky-header .menu-menus-main-container { overflow: visible !important; }
 
-#primary-menu.menu-ul,
-ul.menu-ul {
+#sticky-header #primary-menu.menu-ul,
+#sticky-header ul.menu-ul {
   display: -webkit-box !important;
   display: -webkit-flex !important;
   display: flex !important;
@@ -170,16 +168,16 @@ ul.menu-ul {
   padding: 0;
 }
 
-.menu-ul > li {
+#sticky-header .menu-ul > li {
   -webkit-flex-shrink: 0 !important;
           flex-shrink: 0 !important;
   white-space: nowrap;
 }
 
-/* ── Dropdown sub-menus on hover (Safari / Firefox) ──────────────── */
-.menu-ul .menu-item-has-children { position: relative; }
+/* ── Desktop dropdown sub-menus on hover ── */
+#sticky-header .menu-ul .menu-item-has-children { position: relative; }
 
-.menu-ul .menu-item-has-children > .sub-menu {
+#sticky-header .menu-ul .menu-item-has-children > .sub-menu {
   display: none;
   position: absolute;
   top: 100%;
@@ -187,20 +185,34 @@ ul.menu-ul {
   z-index: 99999;
   min-width: 180px;
 }
-.menu-ul .menu-item-has-children:hover > .sub-menu,
-.menu-ul .menu-item-has-children:focus-within > .sub-menu {
+#sticky-header .menu-ul .menu-item-has-children:hover > .sub-menu,
+#sticky-header .menu-ul .menu-item-has-children:focus-within > .sub-menu {
   display: block !important;
   visibility: visible !important;
   opacity: 1 !important;
   pointer-events: all !important;
 }
-.menu-ul .sub-menu li { display: block; }
-.menu-ul .sub-menu a  { display: block; white-space: nowrap; }
+#sticky-header .menu-ul .sub-menu li { display: block; }
+#sticky-header .menu-ul .sub-menu a  { display: block; white-space: nowrap; }
 
-/* ── General Safari rendering fixes ──────────────────────────────── */
+/* ── Mobile menu: force vertical list (override any inherited flex) ── */
+.mobile-menu .menu-ul,
+.mobile-menu ul.menu-ul,
+.mobile-menu #primary-menu.menu-ul {
+  display: block !important;
+  -webkit-flex-wrap: unset !important;
+          flex-wrap: unset !important;
+}
+.mobile-menu .menu-ul > li {
+  display: block !important;
+  -webkit-flex-shrink: unset !important;
+          flex-shrink: unset !important;
+  white-space: normal !important;
+}
+
+/* ── General Safari fixes ── */
 body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
-
-.site-header, #sticky-header { overflow: visible !important; }
+#sticky-header { overflow: visible !important; }
 .site-branding img, .custom-logo { display: block; max-width: 100%; }
 </style>
 
