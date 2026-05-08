@@ -138,7 +138,7 @@ window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15
 	
 
 <style id="safari-nav-fix">
-/* ── Safari: force dropdown sub-menus to appear on hover ── */
+/* Force dropdown sub-menus visible on hover in Safari */
 .menu-ul .menu-item-has-children { position: relative; }
 
 .menu-ul .menu-item-has-children > .sub-menu {
@@ -147,67 +147,39 @@ window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15
   top: 100%;
   left: 0;
   z-index: 99999;
-  min-width: 200px;
-  pointer-events: none;
-  opacity: 0;
-  visibility: hidden;
-  -webkit-transform: translateY(4px);
-          transform: translateY(4px);
-  -webkit-transition: opacity .2s ease, -webkit-transform .2s ease;
-          transition: opacity .2s ease, transform .2s ease;
+  min-width: 180px;
 }
-
-/* Trigger on hover — works in all browsers incl. Safari desktop */
 .menu-ul .menu-item-has-children:hover > .sub-menu,
 .menu-ul .menu-item-has-children:focus-within > .sub-menu {
   display: block !important;
-  pointer-events: all !important;
-  opacity: 1 !important;
   visibility: visible !important;
-  -webkit-transform: translateY(0) !important;
-          transform: translateY(0) !important;
+  opacity: 1 !important;
+  pointer-events: all !important;
 }
+.menu-ul .sub-menu li { display: block; }
+.menu-ul .sub-menu a  { display: block; white-space: nowrap; }
 
-/* Sub-menu item styling */
-.menu-ul .sub-menu li { display: block; white-space: nowrap; }
-.menu-ul .sub-menu a  { display: block; }
-
-/* Sticky header: add -webkit-sticky for Safari */
-.site-header, header, .header-section, #masthead {
-  position: -webkit-sticky;
-  position: sticky;
-  top: 0;
-  z-index: 9999;
-}
-
-/* Fix -webkit-backdrop-filter for Safari frosted glass */
-.site-header, .header-section, header {
-  -webkit-backdrop-filter: blur(8px);
-          backdrop-filter: blur(8px);
-}
-
-/* Ensure flex rows don't wrap unexpectedly in Safari */
-.menu-ul {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: flex;
-  -webkit-flex-wrap: nowrap;
-          flex-wrap: nowrap;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-.menu-ul > li { -webkit-flex-shrink: 0; flex-shrink: 0; }
-
-/* Fix Safari font-smoothing */
+/* Safari font smoothing */
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Fix Safari overflow clipping on transformed elements */
-.elementor-section, .elementor-widget-wrap {
-  -webkit-transform: translateZ(0);
+/* Ensure header logo image is never clipped */
+.site-branding, .site-branding img, .custom-logo-link, .custom-logo {
+  display: block;
+  max-width: 100%;
+  overflow: visible;
+}
+
+/* Prevent nav container overflow clipping the logo */
+.manu-wrapper {
+  overflow: visible !important;
+}
+
+/* Ensure header never clips children */
+.site-header, #sticky-header {
+  overflow: visible !important;
 }
 </style>
 
