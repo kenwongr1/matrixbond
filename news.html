@@ -131,6 +131,81 @@ window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15
 	        	    }
 	</style>
 	
+
+<style id="safari-nav-fix">
+/* ── Safari: force dropdown sub-menus to appear on hover ── */
+.menu-ul .menu-item-has-children { position: relative; }
+
+.menu-ul .menu-item-has-children > .sub-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 99999;
+  min-width: 200px;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transform: translateY(4px);
+          transform: translateY(4px);
+  -webkit-transition: opacity .2s ease, -webkit-transform .2s ease;
+          transition: opacity .2s ease, transform .2s ease;
+}
+
+/* Trigger on hover — works in all browsers incl. Safari desktop */
+.menu-ul .menu-item-has-children:hover > .sub-menu,
+.menu-ul .menu-item-has-children:focus-within > .sub-menu {
+  display: block !important;
+  pointer-events: all !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  -webkit-transform: translateY(0) !important;
+          transform: translateY(0) !important;
+}
+
+/* Sub-menu item styling */
+.menu-ul .sub-menu li { display: block; white-space: nowrap; }
+.menu-ul .sub-menu a  { display: block; }
+
+/* Sticky header: add -webkit-sticky for Safari */
+.site-header, header, .header-section, #masthead {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 9999;
+}
+
+/* Fix -webkit-backdrop-filter for Safari frosted glass */
+.site-header, .header-section, header {
+  -webkit-backdrop-filter: blur(8px);
+          backdrop-filter: blur(8px);
+}
+
+/* Ensure flex rows don't wrap unexpectedly in Safari */
+.menu-ul {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-wrap: nowrap;
+          flex-wrap: nowrap;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.menu-ul > li { -webkit-flex-shrink: 0; flex-shrink: 0; }
+
+/* Fix Safari font-smoothing */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Fix Safari overflow clipping on transformed elements */
+.elementor-section, .elementor-widget-wrap {
+  -webkit-transform: translateZ(0);
+}
+</style>
+
 </head>
 
 <body class="archive category category-news category-13 wp-custom-logo ehf-template-solute ehf-stylesheet-solute hfeed elementor-default elementor-kit-5891">
@@ -164,14 +239,14 @@ window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15
 </li>
 <li id="menu-item-6140" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-6140"><a href="futures.html">Products<i class="far fa-chevron-down"></i></a>
 <ul class="sub-menu">
-	<li id="menu-item-6138" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6138"><a href="https://matrixbond.ca/matrix-bond-options/">Matrix Bond Options</a></li>
+	<li id="menu-item-6138" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6138"><a href="futures.html">Matrix Bond Options</a></li>
 	<li id="menu-item-6139" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6139"><a href="futures.html">Matrix Bond Futures</a></li>
 </ul>
 </li>
-<li id="menu-item-6145" class="menu-item menu-item-type-post_type menu-item-object-page current_page_parent current_page_ancestor menu-item-has-children menu-item-6145"><a href="news.html">News &#038; Insights<i class="far fa-chevron-down"></i></a>
+<li id="menu-item-6145" class="menu-item menu-item-type-post_type menu-item-object-page current_page_parent current_page_ancestor menu-item-has-children current-menu-ancestor current-menu-parent menu-item-6145"><a href="news.html">News &#038; Insights<i class="far fa-chevron-down"></i></a>
 <ul class="sub-menu">
 	<li id="menu-item-6151" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-6151"><a href="insights.html">Insights</a></li>
-	<li id="menu-item-6152" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-6152"><a href="news.html" aria-current="page">News</a></li>
+	<li id="menu-item-6152" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-6152"><a href="news.html">News</a></li>
 </ul>
 </li>
 <li id="menu-item-6155" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6155"><a href="contact.html">Contact</a></li>
@@ -213,14 +288,14 @@ window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15
 </li>
 <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-6140"><a href="futures.html">Products<i class="far fa-chevron-down"></i></a>
 <ul class="sub-menu">
-	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6138"><a href="https://matrixbond.ca/matrix-bond-options/">Matrix Bond Options</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6138"><a href="futures.html">Matrix Bond Options</a></li>
 	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6139"><a href="futures.html">Matrix Bond Futures</a></li>
 </ul>
 </li>
-<li class="menu-item menu-item-type-post_type menu-item-object-page current_page_parent current_page_ancestor menu-item-has-children menu-item-6145"><a href="news.html">News &#038; Insights<i class="far fa-chevron-down"></i></a>
+<li class="menu-item menu-item-type-post_type menu-item-object-page current_page_parent current_page_ancestor menu-item-has-children current-menu-ancestor current-menu-parent menu-item-6145"><a href="news.html">News &#038; Insights<i class="far fa-chevron-down"></i></a>
 <ul class="sub-menu">
 	<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-6151"><a href="insights.html">Insights</a></li>
-	<li class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-6152"><a href="news.html" aria-current="page">News</a></li>
+	<li class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-6152"><a href="news.html">News</a></li>
 </ul>
 </li>
 <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6155"><a href="contact.html">Contact</a></li>
@@ -343,7 +418,7 @@ window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15
 </ul></div></div></section><section id="block-4" class="widget widget_block"><div class="wp-block-group"><div class="wp-block-group__inner-container is-layout-flow wp-block-group-is-layout-flow"><h2 class="wp-block-heading">Recent Comments</h2><div class="no-comments wp-block-latest-comments">No comments to show.</div></div></div></section><section id="block-5" class="widget widget_block"><div class="wp-block-group"><div class="wp-block-group__inner-container is-layout-flow wp-block-group-is-layout-flow"><h2 class="wp-block-heading">Archives</h2><ul class="wp-block-archives-list wp-block-archives">	<li><a href='https://matrixbond.ca/2024/12/'>December 2024</a></li>
 </ul></div></div></section><section id="block-6" class="widget widget_block"><div class="wp-block-group"><div class="wp-block-group__inner-container is-layout-flow wp-block-group-is-layout-flow"><h2 class="wp-block-heading">Categories</h2><ul class="wp-block-categories-list wp-block-categories">	<li class="cat-item cat-item-1"><a href="insights.html">Insights</a>
 </li>
-	<li class="cat-item cat-item-13 current-cat"><a aria-current="page" href="news.html">News</a>
+	<li class="cat-item cat-item-13 current-cat"><a href="news.html">News</a>
 </li>
 </ul></div></div></section></aside><!-- #secondary -->
 				</div>
