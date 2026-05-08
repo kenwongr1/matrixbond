@@ -133,7 +133,47 @@ window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15
 	
 
 <style id="safari-nav-fix">
-/* Force dropdown sub-menus visible on hover in Safari */
+/* ── Prevent nav items wrapping in Safari / Firefox ──────────────── */
+.manu-wrapper {
+  display: -webkit-box !important;
+  display: -webkit-flex !important;
+  display: flex !important;
+  -webkit-flex-wrap: nowrap !important;
+          flex-wrap: nowrap !important;
+  -webkit-align-items: center !important;
+          align-items: center !important;
+  overflow: visible !important;
+}
+
+.site-branding { -webkit-flex-shrink: 0; flex-shrink: 0; }
+
+.main-navigation,
+.header-nav,
+.menu-menus-main-container {
+  overflow: visible !important;
+}
+
+#primary-menu.menu-ul,
+ul.menu-ul {
+  display: -webkit-box !important;
+  display: -webkit-flex !important;
+  display: flex !important;
+  -webkit-flex-wrap: nowrap !important;
+          flex-wrap: nowrap !important;
+  -webkit-align-items: center !important;
+          align-items: center !important;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.menu-ul > li {
+  -webkit-flex-shrink: 0 !important;
+          flex-shrink: 0 !important;
+  white-space: nowrap;
+}
+
+/* ── Dropdown sub-menus on hover (Safari / Firefox) ──────────────── */
 .menu-ul .menu-item-has-children { position: relative; }
 
 .menu-ul .menu-item-has-children > .sub-menu {
@@ -154,28 +194,11 @@ window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15
 .menu-ul .sub-menu li { display: block; }
 .menu-ul .sub-menu a  { display: block; white-space: nowrap; }
 
-/* Safari font smoothing */
-body {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+/* ── General Safari rendering fixes ──────────────────────────────── */
+body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
 
-/* Ensure header logo image is never clipped */
-.site-branding, .site-branding img, .custom-logo-link, .custom-logo {
-  display: block;
-  max-width: 100%;
-  overflow: visible;
-}
-
-/* Prevent nav container overflow clipping the logo */
-.manu-wrapper {
-  overflow: visible !important;
-}
-
-/* Ensure header never clips children */
-.site-header, #sticky-header {
-  overflow: visible !important;
-}
+.site-header, #sticky-header { overflow: visible !important; }
+.site-branding img, .custom-logo { display: block; max-width: 100%; }
 </style>
 
 </head>
